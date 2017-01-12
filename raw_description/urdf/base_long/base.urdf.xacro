@@ -26,7 +26,7 @@
   <property name="battery_offset_z" value="0.065" />
 
   <property name="base_mass" value="83.1" />
-  <property name="battery_mass" value="83.1" />
+  <property name="battery_mass" value="25.0" />
 
   <property name="battery_size_x" value="0.5" />
   <property name="battery_size_y" value="0.148" />
@@ -41,12 +41,9 @@
     </joint>
 
     <link name="${name}_battery">
-      <inertial>
-        <origin xyz="0 0 0" />
-        <mass value="1.0" />
-        <inertia ixx="0.01" ixy="0.0" ixz="0.0"
-                 iyy="0.01" iyz="0.0" izz="0.01" />
-      </inertial>
+      <xacro:box_inertial x="${battery_size_x}" y="${battery_size_y}" z="${battery_size_z}" mass="${battery_mass}">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+      </xacro:box_inertial>
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
@@ -117,12 +114,12 @@
 
 
     <!-- base laser front -->
-    <xacro:sick_s300_laser_v0 name="${name}_laser_front" parent="${name}" ros_topic="laser_front/scan_raw" update_rate="10" min_angle="-2.3562" max_angle="2.3562" >
+    <xacro:sick_s300_laser_v0 name="${name}_laser_front" parent="${name}">
       <origin xyz="${laser_front_x} ${laser_front_y} ${laser_front_z}" rpy="${laser_front_roll} ${laser_front_pitch} ${laser_front_yaw}" />
     </xacro:sick_s300_laser_v0>
 
     <!-- base laser rear -->
-    <xacro:sick_s300_laser_v0 name="${name}_laser_rear" parent="${name}" ros_topic="laser_rear/scan_raw" update_rate="10" min_angle="-2.3562" max_angle="2.3562" >
+    <xacro:sick_s300_laser_v0 name="${name}_laser_rear" parent="${name}">
       <origin xyz="${laser_rear_x} ${laser_rear_y} ${laser_rear_z}" rpy="${laser_rear_roll} ${laser_rear_pitch} ${laser_rear_yaw}" />
     </xacro:sick_s300_laser_v0>
 
